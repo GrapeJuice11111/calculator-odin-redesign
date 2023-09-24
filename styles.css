@@ -21,6 +21,9 @@ body{
     border-radius: 5px;
     color: white;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    overflow: hidden;
+
+
 }
 
 button{

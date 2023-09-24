@@ -13,10 +13,15 @@ function divide(a,b){
 function multiply(a,b){
     return a * b;
 }
-
-let num1 = "";
-let num2 = "";
+//Declaring variables for global use
+let string1 = "";
+let string2 = "";
+let num1;
+let num2;
 let operator = "";
+let output = 0;
+let num = 1;
+let temp = "";
 
 function Operate(){
     this.method = { 
@@ -39,11 +44,63 @@ const display = document.querySelector(".display");
 let buttons = document.querySelectorAll("button");
 
 // Looping the button to see if a button is pressed with forEach
+    let arrayForInput = [0,];
+    buttons.forEach( btn => btn.addEventListener("click", function(e){
+        
+        let arrayForOperator = ["-","+","/","*"]
+        let arrayForNumbers = [".","0","1","2","3","4","5","6","7","8","9"]
+        display.textcontent = ""
 
-buttons.forEach( btn => btn.addEventListener("click", function(e){
+        //To take the first value for input and display it
+      if(arrayForNumbers.includes(this.classList.value)){
+          arrayForInput[num] += this.classList.value
+           arrayForInput[num] = arrayForInput[num].replace(/undefined/g,"")
+          display.textContent = [arrayForInput[num]]
+      }
+       
 
-    if(typeof(Number(this.classList.value)) === "number"){
-        num1 += this.classList.value;
-        display.textContent = num1;
-    }  
+       //Reset value resets everything
+      else if(this.classList.value === "reset"){
+           num = 1;
+           num1 = 0;
+           num2 = 0;
+           arrayForInput = [output];
+           output = 0;
+           display.textContent = "";
+        }
+    else if(arrayForOperator.includes(this.classList.value)){
+            num = num + 1
+            operator = this.classList.value;
+        }
+     else if(this.classList.value === "equal"){
+        if( operator === "+")
+        {
+        output = arrayForInput.reduce((accumulator,item) => calc.calculate(accumulator,operator,parseInt(item)),0) 
+        display.textContent = output;
+        
+
+        
+        }else if ( operator === "-"){
+           output = arrayForInput.reduce((accumulator,item) => calc.calculate((accumulator), operator, parseInt(item),0) )
+           display.textContent = output;
+        }
+        
+        else if( operator === "*"){
+            output = arrayForInput.reduce((accumulator,item) => calc.calculate(accumulator,operator,parseInt(item)))
+            display.textContent = output;      
+        } 
+        else if( operator === "/"){
+            output = (arrayForInput.reduce((accumulator,item) => calc.calculate(accumulator,operator,parseInt(item))))
+            display.textContent = output;  
+        }
+        arrayForInput.splice(1,1);
+        console.log(arrayForInput)
+     }
+        else if(this.classList.value === "del"){
+          arrayForInput[num] = arrayForInput[num].slice(0,arrayForInput[num].length-1)
+          display.textContent = arrayForInput[num]
+        }
+        console.log(arrayForInput);
+    // we can use array to filter this out will change it after sometime
+         
 }));
