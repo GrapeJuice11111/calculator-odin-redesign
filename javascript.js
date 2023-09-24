@@ -64,7 +64,7 @@ let buttons = document.querySelectorAll("button");
            num = 1;
            num1 = 0;
            num2 = 0;
-           arrayForInput = [output];
+           arrayForInput = [0,];
            output = 0;
            display.textContent = "";
         }
@@ -81,7 +81,7 @@ let buttons = document.querySelectorAll("button");
 
         
         }else if ( operator === "-"){
-           output = arrayForInput.reduce((accumulator,item) => calc.calculate((accumulator), operator, parseInt(item),0) )
+           output = Math.abs(arrayForInput.reduce((accumulator,item) => calc.calculate((item), operator, parseInt(accumulator),0) ))
            display.textContent = output;
         }
         
@@ -93,14 +93,13 @@ let buttons = document.querySelectorAll("button");
             output = (arrayForInput.reduce((accumulator,item) => calc.calculate(accumulator,operator,parseInt(item))))
             display.textContent = output;  
         }
-        arrayForInput.splice(1,1);
-        console.log(arrayForInput)
+        arrayForInput.splice(0,1,output)
+        arrayForInput.splice(1,arrayForInput.length-1);
      }
         else if(this.classList.value === "del"){
           arrayForInput[num] = arrayForInput[num].slice(0,arrayForInput[num].length-1)
           display.textContent = arrayForInput[num]
         }
-        console.log(arrayForInput);
     // we can use array to filter this out will change it after sometime
          
 }));
